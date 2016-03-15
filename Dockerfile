@@ -1,6 +1,6 @@
-FROM alpine
-RUN apk add --update nginx && \
- 	rm -rf /var/cache/apk/*
+FROM ubuntu:14.04
+COPY source.list /etc/apt/sources.list
+RUN apt-get update && apt-get install -y nginx && apt-get clean
 COPY nginx.conf /etc/nginx/nginx.conf
-ADD home.tar /
-CMD nginx -g "daemon off;"
+COPY home /home
+CMD "nginx -g 'daemon off;'"
